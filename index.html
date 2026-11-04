@@ -48,6 +48,11 @@
     onload="document.getElementById('loader').classList.add('done')"></iframe>
   <!-- ▲▲▲ APP URL ▲▲▲ -->
   <script>
+    /* A data form link (…/zeron/?form=…): the app is opened with it, so the person sees only their form, without signing in. */
+    (function () {
+      var code = new URLSearchParams(location.search).get('form'), app = document.getElementById('app');
+      if (code && app && app.src.indexOf('PASTE-') < 0) app.src = app.src.split('?')[0] + '?form=' + encodeURIComponent(code);
+    })();
     /* Until the web app is deployed and its link pasted above, say so instead of showing an error page. */
     if (document.getElementById('app').src.indexOf('PASTE-') >= 0) {
       document.getElementById('app').remove();
